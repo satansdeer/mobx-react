@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import {App} from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { NotesProvider } from "./NotesContext";
+import { RootStateProvider } from "./RootStateContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <NotesProvider>
+    <RootStateProvider>
       <App />
-    </NotesProvider>
+    </RootStateProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

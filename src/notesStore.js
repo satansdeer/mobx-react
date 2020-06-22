@@ -1,16 +1,25 @@
 import {nanoid} from 'nanoid'
+import { autorun, observable, action, decorate } from "mobx"
 
-export function createNotesStore(){
-  return {
-    notes: [],
-    addNote(text){
-      console.log(text, this.notes)
+class NotesStore {
+    constructor() {
+      this.notes = []
+      autorun(() => console.log(this.notesStore.notes))
+    }
+
+    addNote(author, text){
       this.notes.push({
-        text, id: nanoid()
+        author, text, id: nanoid()
       })
-    },
+    }
+
     removeNote(id){
       this.notes = this.notes.filter(note => note.id !== id)
     }
-  }
 }
+
+export default decorate(NotesStore, {
+    notes: observable,
+    addNote: action,
+    removeNote: action
+})

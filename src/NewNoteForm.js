@@ -1,18 +1,26 @@
 import React from "react";
-import { useNotesStore } from "./NotesContext";
+import { useRootStore } from "./RootStateContext";
+import { useObserver } from "mobx-react";
 
 export const NewNoteForm = () => {
   const [noteText, setNoteText] = React.useState("");
-  const notesStore = useNotesStore();
+  const { userStore } = useRootStore();
 
-  return (
+  return useObserver(() => (
     <>
       <input
         value={noteText}
         onChange={(e) => setNoteText(e.target.value)}
         type="text"
       />
-      <button onClick={() => notesStore.addNote(noteText)}>Add note</button>
+      <button
+        onClick={() => {
+          userStore.addNote(noteText);
+          setNoteText("");
+        }}
+      >
+        Add note
+      </button>
     </>
-  );
+  ))
 };
